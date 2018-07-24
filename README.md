@@ -4,4 +4,4 @@
 -------------
 * 原子计数类 tc_atomic.h
 * 智能指针类 tc_autoptr.h
-* 
+* 异常类 tc_ex.h
