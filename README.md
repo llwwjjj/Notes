@@ -79,7 +79,7 @@
       unsigned short sa_family;
       char sa_data[14];
     };
-   ```
+    ```
     其中sa_family是地址家族，一般都是AF_xxx的形式，代表tcp/ip协议族。
     sa_data是14字节协议地址。
     \
