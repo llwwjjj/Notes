@@ -107,4 +107,9 @@
      ```
       --存储4字节的IP地址(网络字节顺序)
   - 本机转换
-  
+    - htons()--"Host to Network Short"
+    - htonl()--"Host to Network Long"
+    - ntohs()--"Network to Host Short"
+    - ntohl()--"Network to Host Long"
+    - 为什么在sockaddr_in中，sin_addr和sin_port需要转换成网络字节顺序，而sin_family不需要呢？因为sin_addr和sin_port封装在包的IP和UDP层。因此他们必须是网络字节顺序。但是sin_family域只是被内核使用来决定在数据结构中包含什么类型的地址，所以他必须是本机字节顺序。同时，sin_family没有发送到网络上，所以是本机字节顺序。
+    
