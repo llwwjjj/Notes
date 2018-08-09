@@ -7,7 +7,6 @@
   - GNU C 中关键字__attribute__可以设置函数属性，变量属性和类型属性。使用方法__attribute__((__参数__));
 也可以对struct或union进行属性设置，使用方法 struct xxx{int x;}__ attribute __((__参数__));
 参数可以为：aligned，packed，transparent_union，unused，may_alias.\
-    \
     - aligned: 设定一个指定大小的对齐格式，而且必须是2的指数倍，如"
     ```cpp
     struct xxx {
@@ -44,7 +43,6 @@
         return 0;
     }
     ```
-    \
     - packed: aligned属性使被设置的对象占用更多的空间，相反的，packed可以减小对象占用的空间。测试：
     ```cpp
     struct aaa {
@@ -54,7 +52,6 @@
     }__attribute__((__packed__)) aa;
     cout<<sizeof(aa)<<endl;//得到7，因为1+2+4=7
     ```
-    \
     - __attribute__改变函数属性，如：
     ```cpp
     #include<iostream>
@@ -76,7 +73,7 @@
   - 
 * sockaddr，in_addr和sockaddr_in
   - 在头文件 sys/socket.h，netinet/in.h和arpa/inet.h下\
-    sockaddr: sockaddr是通用的socket地址，此数据结构用做bind，connect，recvfrom，sendto等函数的参数，指明地址信息。但一般编程中并不直接对此数据结构操作，而是使用另一个与sockaddr等价的数据结构sockaddr_in。
+    - sockaddr: sockaddr是通用的socket地址，此数据结构用做bind，connect，recvfrom，sendto等函数的参数，指明地址信息。但一般编程中并不直接对此数据结构操作，而是使用另一个与sockaddr等价的数据结构sockaddr_in。
     ```cpp
     struct sockaddr{
       unsigned short sa_family;
@@ -85,10 +82,8 @@
     ```
     其中sa_family是地址家族，一般都是AF_xxx的形式，代表tcp/ip协议族。
     sa_data是14字节协议地址。\
-    \
-    in_addr: 就是32位IP地址,4个字节\
-    \
-    sockaddr_in: 
+    - in_addr: 就是32位IP地址,4个字节\
+    - sockaddr_in: 
     ```cpp
     struct sockaddr_in{
       short int sin_family;//地址族，AF_xxx，在socket编程中只能是AF_INET
