@@ -86,5 +86,15 @@
     \
     in_addr: 就是32位IP地址,4个字节\
     sockaddr_in: 
+    ```cpp
+    struct sockaddr_in{
+      short int sin_family;//地址族，AF_xxx，在socket编程中只能是AF_INET
+      unsigned short int sin_port;//端口号，2字节
+      struct in_addr sin_addr;//存储IP地址，4字节
+      unsigned char sin_zero[8];//8字节，实际上没什么用，是为了和sockaddr保持一样的长度
+    };
+    ```
+    sockaddr和sockaddr_in可以互相转换，我们在为bind()函数准备ip，port值时，可以直接将值赋给结构体，如：
+    
 * 智能指针类 tc_autoptr.h
 * 异常类 tc_ex.h
