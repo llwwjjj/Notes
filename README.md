@@ -61,7 +61,7 @@
     using namespace std;
 
     static __attribute__((constructor)) void before(){
-      cout<<"hello"<<endl;//在main函数之前执行
+      cout<<"hello ";//在main函数之前执行
     }
 
     static __attribute__((destructor)) void after(){
@@ -70,7 +70,7 @@
 
     int main(){
       return 0;
-    }
+    }//编译运行，显示hello world
     ```
 * 智能指针类 tc_autoptr.h
 * 异常类 tc_ex.h
