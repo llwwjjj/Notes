@@ -77,7 +77,7 @@
     - 数据包格式套接字： 也叫无连接套接字，如果你发送一个数据报，他可能会到达，可能会次序颠倒；如果他到达了，那么在这个包的内部是无错误的，使用用户数据报协议 UDP。
     - 为什么数据报格式套接字是无连接的？主要是因为他不像流格式套接字那样维持一个连接，你只要建立一个包，构造一个有目标信息的IP头，然后发出去，无需连接。收到者必须发回一个ACK包，如果在一定时间发送方没有收到ACK，将重新发送，直到得到ACK。
   - 七层协议：应用层(telnet,ftp等),表示层，会话层，传输层(TCP,UDP)，网络层(IP和路由)，数据链路层，物理层。
-  - 结构体sockaddr，in_addr和sockaddr_in
+  - 结构体sockaddr，in_addr和sockaddr_in：
     - socket描述符的类型是int
     - 在头文件 sys/socket.h，netinet/in.h和arpa/inet.h下
     - sockaddr: sockaddr是通用的socket地址，此数据结构用做bind，connect，recvfrom，sendto等函数的参数，指明地址信息。但一般编程中并不直接对此数据结构操作，而是使用另一个与sockaddr等价的数据结构sockaddr_in。
@@ -106,10 +106,17 @@
      };
      ```
       --存储4字节的IP地址(网络字节顺序)
-  - 本机转换
+  - 本机转换：
     - htons()--"Host to Network Short"
     - htonl()--"Host to Network Long"
     - ntohs()--"Network to Host Short"
     - ntohl()--"Network to Host Long"
     - 为什么在sockaddr_in中，sin_addr和sin_port需要转换成网络字节顺序，而sin_family不需要呢？因为sin_addr和sin_port封装在包的IP和UDP层。因此他们必须是网络字节顺序。但是sin_family域只是被内核使用来决定在数据结构中包含什么类型的地址，所以他必须是本机字节顺序。同时，sin_family没有发送到网络上，所以是本机字节顺序。
-    
+  - 处理IP地址：
+    - 用函数inet_addr()可以将IP地址从点格式转换成无符号长整数型。使用方法：\
+      struct sockaddr_ina; \
+      ina.sin_addr = inet_addr("192.168.0.1");\
+      inet_addr()返回的地址已经是网络字节格式，所以没必要再使用htonl()
+    - 函数inet_ntoa()可以将一个sin_addr转换成点数格式
+  - socket()函数：
+ 
