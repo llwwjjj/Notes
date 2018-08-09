@@ -98,6 +98,7 @@
       unsigned char sin_zero[8];//8字节，实际上没什么用，是为了和sockaddr保持一样的长度
     };
     ```
+    使用sockaddr_in可以轻松处理套接字地址的基本元素。sin_zero应该使用函数bzero()或menset()来全部置零。sockaddr和sockaddr_in可以互相转换，而且指向这两个结构体的指针也可以互相代替。同时，sin_family和sa_family需一致。最后，sin_port和sin_addr必须是网络字节顺序
      - in_addr: 就是32位IP地址,4个字节(怎么让sin_addr按照网络字节顺序？)
      ```cpp
      struct in_addr {
