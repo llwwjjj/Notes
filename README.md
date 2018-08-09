@@ -102,7 +102,7 @@
      - in_addr: 就是32位IP地址,4个字节(怎么让sin_addr按照网络字节顺序？)
      ```cpp
      struct in_addr {
-      unsigned long s_addr;
+      unsigned long s_addr;//存储4字节的IP地址(网络字节顺序)
      };
-     ```
+     ```- 本机转换
       
