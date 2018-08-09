@@ -74,15 +74,15 @@
     ```
 * sockaddr，sockaddr_in和in_addr
   - sockaddr: sockaddr是通用的socket地址，此数据结构用做bind，connect，recvfrom，sendto等函数的参数，指明地址信息。但一般编程中并不直接对此数据结构操作，而是使用另一个与sockaddr等价的数据结构sockaddr_in。
-  ```cpp
-  struct sockaddr{
-    unsigned short sa_family;
-    char sa_data[14];
-  };
-  ```
-  其中sa_family是地址家族，一般都是AF_xxx的形式，代表tcp/ip协议族。
-  sa_data是14字节协议地址。
-  \
-  sockaddr_in: 
+    ```cpp
+    struct sockaddr{
+      unsigned short sa_family;
+      char sa_data[14];
+    };
+   ```
+    其中sa_family是地址家族，一般都是AF_xxx的形式，代表tcp/ip协议族。
+    sa_data是14字节协议地址。
+    \
+    sockaddr_in: 
 * 智能指针类 tc_autoptr.h
 * 异常类 tc_ex.h
