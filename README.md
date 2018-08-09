@@ -125,4 +125,5 @@
     - type告诉内核是SOCK_STREAM还是SOCK_DGRAM类型
     - protocol用来指定socket所使用的传输协议编号，其中IPPROTO_TCP为6，IPPROTO_IP为0，IPPROTO_UDP为17
     - socket返回以后在系统调用中可能用到的socket描述符，在错误时返回-1.全局变量errno中存储返回的错误值。
+   - bind()函数：
    
