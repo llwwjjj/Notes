@@ -55,6 +55,22 @@
     cout<<sizeof(aa)<<endl;//得到7，因为1+2+4=7
     ```
     \
-    
+    __attribute__改变函数属性，如：
+    ```cpp
+    #include<iostream>
+    using namespace std;
+
+    static __attribute__((constructor)) void before(){
+      cout<<"hello"<<endl;//在main函数之前执行
+    }
+
+    static __attribute__((destructor)) void after(){
+      cout<<"world!"<<endl;//在main函数之后执行
+    }
+
+    int main(){
+      return 0;
+    }
+    ```
 * 智能指针类 tc_autoptr.h
 * 异常类 tc_ex.h
