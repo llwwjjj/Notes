@@ -153,7 +153,6 @@
        bzero(&(ina.sin_zero), 8);
 
        int ret = bind(serverfd,(const struct sockaddr*)&ina,sizeof(ina));
-       cout<<ret<<endl;
        if(ret < 0){
         cout<<"绑定本地地址、端口失败"<<endl;
         return -1;
@@ -161,4 +160,5 @@
        return 0;
       }
     ```
+     --其中bzero在头文件string.h中，置零
     
