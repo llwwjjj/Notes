@@ -14,7 +14,7 @@
       int x[3];
     };__attribute__((__aligned(8)));
     ```
-    强制设定struct的变量在分配空间时采用8字节对齐方式，但如果超过连接器最大支持字节数是无济于事的。测试：
+    强制设定struct的变量在分配空间时采用8字节对齐方式，但如果超过连接器最大支持字节数是无济于事的,小于struct内最大类型也无效。测试：
     ```cpp
     #include<iostream>
     using namespace std;
