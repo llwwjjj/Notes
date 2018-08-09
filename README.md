@@ -45,7 +45,16 @@
     }
     ```
     \
-    packed: aligned属性使被设置的对象占用更多的空间，相反的，packed可以减小对象占用的空间。
-  
+    packed: aligned属性使被设置的对象占用更多的空间，相反的，packed可以减小对象占用的空间。测试：
+    ```cpp
+    struct aaa {
+      char a;
+      short b;
+      int c;
+    }__attribute__((__packed__)) aa;
+    cout<<sizeof(aa)<<endl;//得到7，因为1+2+4=7
+    ```
+    \
+    
 * 智能指针类 tc_autoptr.h
 * 异常类 tc_ex.h
