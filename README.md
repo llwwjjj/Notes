@@ -72,5 +72,7 @@
       return 0;
     }//编译运行，显示hello world
     ```
+* sockaddr_in sockaddr in_addr
+  - sockaddr 是通用的socket地址，具体到Internet socket，用下面的结构，二者可以进行类型转换
 * 智能指针类 tc_autoptr.h
 * 异常类 tc_ex.h
