@@ -8,7 +8,7 @@
 也可以对struct或union进行属性设置，使用方法 struct xxx{int x;}__ attribute __((__参数__));
 参数可以为：aligned，packed，transparent_union，unused，may_alias.\
     \
-    aligned: 设定一个指定大小的对齐格式，而且必须是2的指数倍，如"
+    - aligned: 设定一个指定大小的对齐格式，而且必须是2的指数倍，如"
     ```cpp
     struct xxx {
       int x[3];
@@ -45,7 +45,7 @@
     }
     ```
     \
-    packed: aligned属性使被设置的对象占用更多的空间，相反的，packed可以减小对象占用的空间。测试：
+    - packed: aligned属性使被设置的对象占用更多的空间，相反的，packed可以减小对象占用的空间。测试：
     ```cpp
     struct aaa {
       char a;
@@ -55,7 +55,7 @@
     cout<<sizeof(aa)<<endl;//得到7，因为1+2+4=7
     ```
     \
-    __attribute__改变函数属性，如：
+    - __attribute__改变函数属性，如：
     ```cpp
     #include<iostream>
     using namespace std;
@@ -72,6 +72,8 @@
       return 0;
     }//编译运行，显示hello world
     ```
+* Socket：
+  - 
 * sockaddr，in_addr和sockaddr_in
   - 在头文件 sys/socket.h，netinet/in.h和arpa/inet.h下\
     sockaddr: sockaddr是通用的socket地址，此数据结构用做bind，connect，recvfrom，sendto等函数的参数，指明地址信息。但一般编程中并不直接对此数据结构操作，而是使用另一个与sockaddr等价的数据结构sockaddr_in。
@@ -85,6 +87,7 @@
     sa_data是14字节协议地址。\
     \
     in_addr: 就是32位IP地址,4个字节\
+    \
     sockaddr_in: 
     ```cpp
     struct sockaddr_in{
