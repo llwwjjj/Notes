@@ -159,6 +159,6 @@
        }
        return 0;
       }
-   ```
-     --其中bzero在头文件string.h中，置零
+     ```
+   --其中bzero在头文件string.h中，置零
     
