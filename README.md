@@ -8,7 +8,7 @@
 也可以对struct或union进行属性设置，使用方法 struct xxx{int x;}__ attribute __((__参数__));
 参数可以为：aligned，packed，transparent_union，unused，may_alias.\
     \
-    aligned: 设定一个指定大小的对齐格式，如"
+    aligned: 设定一个指定大小的对齐格式，而且必须是2的指数倍，如"
     ```cpp
     struct xxx {
       int x[3];
