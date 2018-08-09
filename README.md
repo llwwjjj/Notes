@@ -120,10 +120,45 @@
     - 函数inet_ntoa()可以将一个sin_addr转换成点数格式
   - socket()函数：
     - 需要头文件sys/types.h和sys/socket.h
+    - 根据地址族，数据类型和协议来分配一个套接字及其所用资源
     - int socket(int domain,int type,int protocol);
     - domain应该设置成AF_INET，可以传inta.sin_family
     - type告诉内核是SOCK_STREAM还是SOCK_DGRAM类型
     - protocol用来指定socket所使用的传输协议编号，其中IPPROTO_TCP为6，IPPROTO_IP为0，IPPROTO_UDP为17
     - socket返回以后在系统调用中可能用到的socket描述符，在错误时返回-1.全局变量errno中存储返回的错误值。
    - bind()函数：
-   
+     - 需要头文件sys/types.h和sys/socket.h
+     - 一旦有了一个套接字，可能就需要将套接字和设备上的端口关联起来，如果你想用listen()来监听一定端口的数据这步是必须的，如果只想用connect()，那么这个步骤没有必要。
+     - int bind(int sockfd,struct sockaddr *my_addr,int addrlen);
+     - sockfd是调用socket()返回的文件描述符
+     - my_addr是指向sockaddr的指针，一般我们需要传ina,也就是sockaddr_in,所以一般传(const struct sockaddr*)&ina，他保存自己的地址(端口和IP信息)
+     - addrlen设置为sizeof(struct sockaddr_in)也就是16字节
+     - bind成功返回0；出错返回－1，相应地设定全局变量errno。
+   - socket() + bind()实例:
+     ```cpp
+     int main(){
+       int serverfd = -1;
+       struct sockaddr_in ina;
+
+       ina.sin_family = AF_INET;
+       ina.sin_port = htons(8183);//将整型变量转换成网络字节顺序，TCP中规定好的一种数据表示格式，大端
+       ina.sin_addr.s_addr = inet_addr("172.27.138.8");//转换成32位IP地址，也就是8位十六进制数
+    
+       serverfd = socket(ina.sin_family,SOCK_STREAM,IPPROTO_TCP); 
+       if(serverfd < 0){//socket错误检查
+        cout<<"创建server的socket套接字失败"<<endl;
+        return -1;
+       }
+ 
+       bzero(&(ina.sin_zero), 8);
+
+       int ret = bind(serverfd,(const struct sockaddr*)&ina,sizeof(ina));
+       cout<<ret<<endl;
+       if(ret < 0){
+        cout<<"绑定本地地址、端口失败"<<endl;
+        return -1;
+       }
+       return 0;
+      }
+    ```
+    
