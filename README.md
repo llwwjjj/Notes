@@ -225,4 +225,10 @@
      - sockfd是连接的流式套接字
      - addr保存着另一边的信息
      - 失败返回-1
-  
+  - gethostname()函数：
+     - 需要头文件unistd.h
+     - 获取主机名
+     - int gethostname(char *hostname,size_t size);
+     - hostname返回主机名，size是hostname数组的字节长度
+  - 域名服务(DNS):
+     -   
