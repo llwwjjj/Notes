@@ -183,5 +183,12 @@
      - listen()成功返回0，错误返回-1，相应地设定全局变量errno
      - 1.socket()创建套接字 2.bind()将套接字与本地IP和端口关联 3.listen监听套接字
    - accept()函数
-    
+     - 需要头文件sys/types.h和sys/socket.h
+     - accept可以从等待接受的队列中接受一个连接请求，它将返回一个新的套接字，这样你就有两个套接字了，一个还在监听端口，新的套接字在准备发送send()和接收recv()数据。
+     - int accept(int sockfd,struct sockaddr *addr,int *addrlen);
+     - sockfd是要接受的连接描述符，和listen的一样
+     - addr是一个指向局部sockaddr的指针，这是接入的信息要传入的地方
+     - addrlen是一个局部的整型变量，
+     - 错误时返回-1，成功时返回新的套接字
+     
       
