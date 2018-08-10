@@ -191,7 +191,7 @@
      - addrlen是一个局部的整型变量，
      - 错误时返回-1，成功时返回新的套接字
      - 在系统调用中send()和recv()都应该使用新的套接字描述符new_fd,如果你只想让一个连接进来，那么可以使用close()去关闭原来的文件描述符sockfd来避免同一个端口更多的连接
-   - send()和recv()函数
+   - send()和recv()函数：
      - 需要头文件sys/types.h和sys/socket.h
      - 这两个函数用于流式套接字或者数据报套接字的通讯
      - int send(int sockfd,const void *msg,int len,int flags);
@@ -207,7 +207,22 @@
      - len是缓冲的最大长度
      - flags可以设为0
      - 错误返回-1，并设置errno
-   - sendto()和recvfrom()函数
+   - sendto()和recvfrom()函数：
      - 无连接传数据，需要包含目的地的IP和端口信息
      - 如果你用connect()连接一个数据报套接字，你可以简单地调用send()和recv()来满足你的要求，这个时候依然是数据报套接字，依然是用UDP，系统套接字接口会为你自动加上目标和源的信息。
-      
+   - close()和shutdown()函数：
+     - 需要头文件sys/types.h和sys/socket.h
+     - 在send()和recv()之后，如果需要关闭你的套接字描述符，可以使用close()
+     - int close(int sockfd);
+     - 它将防止套接字上更多的数据的读写。任何在另一端读写套接字的企图都将返回错误信息。如果你想在如何关闭套接字上多一点控制，可以使用shutdown(),他允许你将一定方向的通讯或者双向通讯关闭
+     - int shutdown(int sockfd,int how);
+     - how = 0 ->不允许接受 1->不允许发送 2->不允许发送和接受，和close一样
+     - shutdown()成功返回0，失败返回-1，如果无连接的数据报套接字中使用shutdown()，那么只不过是让send()和recv()不能使用。
+  - getpeername()函数：
+     - 需要头文件sys/types.h和sys/socket.h
+     - 告诉你在连接的流式套接字上谁在另一边
+     - int getpeername(int sockfd,struct sockaddr* addr,int *addrlen);
+     - sockfd是连接的流式套接字
+     - addr保存着另一边的信息
+     - 失败返回-1
+  
