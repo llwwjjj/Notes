@@ -190,6 +190,22 @@
      - addr是一个指向局部sockaddr的指针，这是接入的信息要传入的地方
      - addrlen是一个局部的整型变量，
      - 错误时返回-1，成功时返回新的套接字
-     - 在系统调用中send()和recv()都应该使用新的套接字描述符new_fd,如果你只想让一个连接进来，那么可以使用close()去关闭原来的文件描述符sockfd来避免同一个端口更多的连接。
+     - 在系统调用中send()和recv()都应该使用新的套接字描述符new_fd,如果你只想让一个连接进来，那么可以使用close()去关闭原来的文件描述符sockfd来避免同一个端口更多的连接
+   - send()和recv()函数
+     - 需要头文件sys/types.h和sys/socket.h
+     - 这两个函数用于流式套接字或者数据报套接字的通讯
+     - int send(int sockfd,const void *msg,int len,int flags);
+     - sockfd是你想要发送数据的套接字描述符，accep()返回的
+     - msg是指向你想要发送的数据的指针
+     - len是你要发送的数据的长度
+     - flags设置为0就可以了
+     - ！！send()返回实际发送的数据的字节数，他可能小于要求发送的数目！！它只是发送他可能发送的数据，如果返回的数据和len不匹配，你就应该发送其他数据，如果你发的包很小(小于大约1K)，他可能处理让数据一次发送完
+     - 错误返回-1，并设置errno
+     - int recv(int sockfd,void *buf,int len,unsigned int flags);
+     - sockfd是要读的套接字描述符
+     - buf是要读的信息的缓冲
+     - len是缓冲的最大长度
+     - flags可以设为0
+     - 错误返回-1，并设置errno
      
       
