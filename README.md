@@ -165,4 +165,23 @@
      - 也可以让ina.sin_port = INADDR_ANY;意思是使用自己的IP地址
      - 不要采用小于1024的端口号，因为所有小于1024的端口都被系统保留
      - 如果直接使用connect()来进行远程通讯，就不需要关心本地端口号，因为它会检查套接字是否绑定端口，如果没有，它会自己绑定一个没有使用的本地端口
-     
+     - 不使用bind()意味着不在乎本地端口号，只关心我要去哪。
+   - connect()函数
+     - 需要头文件sys/types.h和sys/socket.h
+     - 用于连接到远程主机，绑定目的地端口和IP
+     - int connect(int sockfd,struct sockaddr* serv_addr,int addrlen);
+     - sockfd是调用socket()返回的文件描述符,如果之前没有bind过就自己绑定一个本地端口，总之sockfd已经对应了本地IP和端口
+     - serv_addr保存着目的地的端口和IP
+     - addrlen设置为sizeof(struct sockaddr_in)也就是16字节
+     - connect()成功时返回0，错误返回-1，相应地设定全局变量errno
+   - listen()函数
+     - 需要头文件sys/types.h和sys/socket.h
+     - 监听套接字
+     - int listen(int sockfd,int backlog);
+     - sockfd是调用socket()返回的文件描述符
+     - backlog是在进入队列中允许的连接数目，进入的连接是在队列中一直等待直到你accept连接，大多数系统允许数目是20，也有5或10
+     - listen()成功返回0，错误返回-1，相应地设定全局变量errno
+     - 1.socket()创建套接字 2.bind()将套接字与本地IP和端口关联 3.listen监听套接字
+   - accept()函数
+    
+      
