@@ -231,4 +231,35 @@
      - int gethostname(char *hostname,size_t size);
      - hostname返回主机名，size是hostname数组的字节长度
   - 域名服务(DNS):
-     -   
+     - 从域名得到IP地址：调用gethostbyname()函数
+     - 需要头文件netdb.h
+     - struct hostent *gethostbyname(const char *name);
+     ```cpp
+     struct hostent{
+      char *h_name;
+      char **h_aliases;
+      int h_addrtype;
+      int h_length;
+      char **h_addr_list;
+      };
+      ```
+      - 其中h_name表示地址的正式名称
+      - h_aliases表示地址预备名称的指针
+      - h_addrtype表示地址类型，一般是AF——INFT
+      - h_length表示地址的长度(16btyes)
+      - h_addr_list表示主机网络地址指针，为网络字节顺序
+      - 返回一个指向hostent的指针，失败返回NULL,但不会设置errno
+  - 客户端-服务器：
+      - 在网络上的所有东西都是在处理客户进程和服务器进程的交谈，举个telnet例子，当你用telnet通过23号端口登录到主机，主机上运行一个程序telnetd激活，他处理这个连接，显示登录界面等等。
+      - 客户端-服务器端之间可以使用流式套接字也可以使用数据报套接字，一些很好的例子有：telnet-telnetd，ftp-ftpd和bootp-bootpd。每次你使用ftp时，在远端都有一个ftpd为你服务。
+      - 一般，服务器等待连接，accept一个连接后用fork()创建一个子进程去处理它。
+ - 简单的服务器实例：
+ 
+
+
+
+
+
+
+
+
