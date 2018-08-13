@@ -268,8 +268,44 @@
       - 非阻塞忙轮询并不是个好主意，因为将浪费大量CPU时间，为此的解决办法可以是设置一个中间层，也就是一个代理select去完成轮询工作，
   - 多路同步I/O---select():
       - 需要头文件sys/time.h，sys/time.h，unistd.h
-      
-
+      - 可以监听多个描述符，可以得知哪个套接字准备读，哪个套接字准备写，哪个套接字发生exception
+      - int select(int numfds,fd_set *readfds,fd_set *writefds,fd_set *exceptfds,struct timeval *timeout);
+      - 这个函数监视一系列描述符：readfds，writefds和exceptfds
+      - FD_ZERO（fd_set *set）清除一个文件描述符集合
+      - FD_SET(int fd,fd_set *set)添加fd到集合
+      - FD_CLR(int fd,fd_set *set)从集合中移去fd
+      - FD_ISSET(int fd,fd_set *set)测试fd是否在集合中
+      - struct timeval允许设定一个时间，如果时间到了，select()还没有找到一个准备好的文件描述符，它将返回让你处理
+      ```cpp
+      struct timeval{
+        int tv_sec;//秒
+        int tv_usec;//微妙
+      };
+      ```
+      - 如果将时间设为0，select()将立即超时，这样就可以有效地轮询一次集合中的文件描述符
+      - 如果将时间设为NULL，将永远不会发生超时，即一直等到第一个就绪的文件描述符
+      - select()实例：
+      ```cpp
+      #include <sys/time.h>
+      #include <sys/types.h>
+      #include <unistd.h>
+      #include <iostream>
+      #define STDIN 0 /* file descriptor for standard input */
+      using namespace std;
+      int main(){
+        struct timeval tv;
+        fd_set readfds;
+        tv.tv_sec = 2;
+        tv.tv_usec = 500000;
+        FD_ZERO(&readfds);
+        FD_SET(STDIN, &readfds);
+     /* don't care about writefds and exceptfds: */
+        select(STDIN+1, &readfds, NULL, NULL, &tv);
+        if (FD_ISSET(STDIN, &readfds))
+          cout<<"A key was pressed!\n"<<endl;
+        else
+          cout<<"Timed out.\n"<<endl;;
+      }
 
 
 
