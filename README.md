@@ -257,7 +257,18 @@
       - 服务端：参见server1.cpp
       - 客户端：参见client1.cpp
       - 服务端使用fork()：参见server2.cpp
-
+  - 阻塞：
+      - accept()阻塞，recv()阻塞、他们之所以允许这么做，是因为当你第一次调用socket()建立套接字描述符的时候，内核就将它设置为阻塞。
+      - 如果你不想套接字阻塞，你就要调用函数fcntl():
+      ```cpp
+      sockfd = socket(AF_INET,SOCK_STREAM,0);
+      fcntl(sockfd,F_SETFL,O_NONBLOCK);
+      ```
+      - 这样将套接字设为非阻塞，你能够忙轮询套接字以获得信息，如果你尝试从一个非阻塞套接字读信息并且没有任何数据，将返回-1并将error设为EWOULDBLOCK
+      - 非阻塞忙轮询并不是个好主意，因为将浪费大量CPU时间，为此的解决办法可以是设置一个中间层，也就是一个代理select去完成轮询工作，
+  - 多路同步I/O---select():
+      - 需要头文件sys/time.h，sys/time.h，unistd.h
+      
 
 
 
