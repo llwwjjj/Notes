@@ -308,7 +308,9 @@
       }
       ```
       - 2.5秒超时，除非在此之前按下回车
-
-
+  - ttcp：
+      - 涉及到write： ssize_t write(int fd,const void *buf,size_t nbytes);
+      - 从buf中数据写入fd，返回值一般等于nbytes，否则就是出错，常见的出错原因是磁盘空间满了或者超过文件大小限制，正因为可能出错所以写一个write_n来确保写入指定长度的数据
+      
 
 
