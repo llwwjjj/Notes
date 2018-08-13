@@ -56,6 +56,14 @@ int main(){
                         cerr<<"send"<<endl;
                         break;
                 }
+        //----------------------recv---------------------------
+                char buf[100];
+                memset(buf,0,sizeof(buf));
+                if(recv(new_fd,buf,sizeof(buf),0) == -1){
+                        cerr<<"recv error"<<endl;
+                        break;
+                }
+                cout<<buf<<endl;
                 close(new_fd);
         }
         close(sockfd);
