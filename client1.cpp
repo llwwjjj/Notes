@@ -38,6 +38,12 @@ int main(){
                 cerr<<"recv error"<<endl;
                 return -1;
         }
+
+        if(send(sockfd,"world\n",6,0) == -1){
+                cerr<<"secd error"<<endl;
+                return -1;
+        }
+
         cout<<buf<<endl;
         close(sockfd);
         return 0;
