@@ -54,6 +54,7 @@ int main(){
         //----------------------send---------------------------
                 if(send(new_fd,"hello\n",6,0) == -1){
                         cerr<<"send"<<endl;
+                        close(new_fd);
                         break;
                 }
         //----------------------recv---------------------------
@@ -61,6 +62,7 @@ int main(){
                 memset(buf,0,sizeof(buf));
                 if(recv(new_fd,buf,sizeof(buf),0) == -1){
                         cerr<<"recv error"<<endl;
+                        close(new_fd);
                         break;
                 }
                 cout<<buf<<endl;
