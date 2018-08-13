@@ -256,7 +256,7 @@
   - 简单的服务器实例：
       - 服务端：参见server1.cpp
       - 客户端：参见client1.cpp
-  
+      - 服务端使用fork()：参见server2.cpp
 
 
 
