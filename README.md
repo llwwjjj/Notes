@@ -254,8 +254,9 @@
       - 客户端-服务器端之间可以使用流式套接字也可以使用数据报套接字，一些很好的例子有：telnet-telnetd，ftp-ftpd和bootp-bootpd。每次你使用ftp时，在远端都有一个ftpd为你服务。
       - 一般，服务器等待连接，accept一个连接后用fork()创建一个子进程去处理它。
   - 简单的服务器实例：
-      - 
-
+      - 服务端：参见server1.cpp
+      - 客户端：参见client1.cpp
+  
 
 
 
