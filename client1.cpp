@@ -36,11 +36,13 @@ int main(){
 
         if((numbytes = recv(sockfd,buf,MAXDATASIZE,0)) == -1){
                 cerr<<"recv error"<<endl;
+                close(sockfd);
                 return -1;
         }
 
         if(send(sockfd,"world\n",6,0) == -1){
                 cerr<<"secd error"<<endl;
+                close(sockfd);
                 return -1;
         }
 
