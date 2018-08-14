@@ -316,4 +316,4 @@
       - int setsockopt(int sockfd,int level,int optname,void* optval,socklen_t* optlen);
       - 例如：setsockopt(fd,SOL_SOCKET,SO_RCVTIMEO,&tv_out,sizeof(tv_out));这样就设定了超时机制，tv_out类型为timeval，当超过tv_out设定的时间而没有数据到来时recv()就会返回0值。
       - 再如：setsockopt(fd,SOL_SOCKET,SO_REUSEADDR,&yes,sizeof(yes));
-      - 其中SOL_SOCKET为基本套接口，SO_REUSEADDR为
+      - 其中SOL_SOCKET为基本套接口，SO_REUSEADDR为允许重用本地地址和端口
