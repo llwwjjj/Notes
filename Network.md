@@ -319,4 +319,5 @@
       - 其中SOL_SOCKET为基本套接口，SO_REUSEADDR为允许重用本地地址和端口
       - 一般来说，一个端口释放后会等待两分钟之后才能再被使用，而SO_REUSEADDR可以让端口释放后立即就可以被再次使用
       - SO_REUSEADDR用于对TCP套接字处于TIME_WAIT状态下的socket，才可以被重复绑定使用
-    
+      - server程序总是应该在调用bind()之前设置SO__REUSEADDR套接字选项
+        fd_set readfds;
