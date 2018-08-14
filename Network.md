@@ -311,6 +311,9 @@
   - ttcp：
       - 涉及到write： ssize_t write(int fd,const void *buf,size_t nbytes);
       - 从buf中数据写入fd，返回值一般等于nbytes，否则就是出错，常见的出错原因是磁盘空间满了或者超过文件大小限制，正因为可能出错所以写一个write_n来确保写入指定长度的数据
-      
-
-
+  - setsockopt()函数:
+      - 在TCP连接中，recv等函数默认为阻塞模式，即直到有数据来之前函数不会返回，而我们有时则需要一种超时机制使其在一定时间后返回而不管是否有数据到来，这里我们就会用到setsockopt()函数。
+      - int setsockopt(int sockfd,int level,int optname,void* optval,socklen_t* optlen);
+      - 例如：setsockopt(fd,SOL_SOCKET,SO_RCVTIMEO,&tv_out,sizeof(tv_out));这样就设定了超时机制，tv_out类型为timeval，当超过tv_out设定的时间而没有数据到来时recv()就会返回0值。
+      - 再如：setsockopt(fd,SOL_SOCKET,SO_REUSEADDR,&yes,sizeof(yes));
+      - 其中SOL_SOCKET为基本套接口，SO_REUSEADDR为
