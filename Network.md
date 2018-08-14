@@ -317,3 +317,6 @@
       - 例如：setsockopt(fd,SOL_SOCKET,SO_RCVTIMEO,&tv_out,sizeof(tv_out));这样就设定了超时机制，tv_out类型为timeval，当超过tv_out设定的时间而没有数据到来时recv()就会返回0值。
       - 再如：setsockopt(fd,SOL_SOCKET,SO_REUSEADDR,&yes,sizeof(yes));
       - 其中SOL_SOCKET为基本套接口，SO_REUSEADDR为允许重用本地地址和端口
+      - 一般来说，一个端口释放后会等待两分钟之后才能再被使用，而SO_REUSEADDR可以让端口释放后立即就可以被再次使用
+      - SO_REUSEADDR用于对TCP套接字处于TIME_WAIT状态下的socket，才可以被重复绑定使用
+    
