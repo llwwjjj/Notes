@@ -312,6 +312,17 @@
       - 涉及到write： ssize_t write(int fd,const void *buf,size_t nbytes);
       - 从buf中数据写入fd，返回值一般等于nbytes，否则就是出错，常见的出错原因是磁盘空间满了或者超过文件大小限制，正因为可能出错所以写一个write_n来确保写入指定长度的数据
       - 通过实例测得吞吐量为42.8755Mb/s
+      - 测试结果：
+        contianer            |quantity     |time(ms)    |
+        ---------------------|-------------|------------|
+        Lwj_stl::Lwj_vector  | 100,000     |1.287       |
+        Lwj_stl::Lwj_vector  | 1,000,000   |9.766       |
+        Lwj_stl::Lwj_vector  | 10,000,000  |120.845     |
+        Lwj_stl::Lwj_vector  | 100,000,000 |1137.44     |
+        std::vector          | 100,000     |2.326       |
+        std::vector          | 1,000,000   |22.257      |
+        std::vector          | 10,000,000  |265.646     |
+        std::vector          | 100,000,000 |2408.51     |
   - setsockopt()函数:
       - 在TCP连接中，recv等函数默认为阻塞模式，即直到有数据来之前函数不会返回，而我们有时则需要一种超时机制使其在一定时间后返回而不管是否有数据到来，这里我们就会用到setsockopt()函数。
       - int setsockopt(int sockfd,int level,int optname,void* optval,socklen_t* optlen);
