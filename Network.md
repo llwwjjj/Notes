@@ -326,6 +326,7 @@
        131072               | 1024        |106.8             |
        262144               | 1024        |106.8             |
        
+       - 结论：应用层消息一般不会很大，消息数量不影响传输速度，而ttxp所测带宽和消息的大小有关，消息越小，传输延迟的影响越大。
   - setsockopt()函数:
       - 在TCP连接中，recv等函数默认为阻塞模式，即直到有数据来之前函数不会返回，而我们有时则需要一种超时机制使其在一定时间后返回而不管是否有数据到来，这里我们就会用到setsockopt()函数。
       - int setsockopt(int sockfd,int level,int optname,void* optval,socklen_t* optlen);
