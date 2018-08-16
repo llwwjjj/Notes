@@ -16,4 +16,6 @@
       - binlog由一系列的binlog event构成。每个binlog event包含header和data两部分
       - header：提供event的公共的类型信息，包括event的创建时间，服务器等
       - data：提供针对该event的具体信息，如具体数据的修改
-      
+  - BinLog应用场景：
+      - mysql主从复制：mysql replication在master端开启binlog，master把它的二进制日志传递给slaver来达到master-slaver数据一致的目的
+      - 数据恢复，通过使用mysqlbinlog工具可以恢复数据
