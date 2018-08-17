@@ -339,3 +339,11 @@
   - reinterpret_cast<type>
       - type必须是一个指针、引用、算数类型、函数指针或者成员指针。他可以把一个指针转换成一个整数，也可以把一个整数转换成一个指针。
       - 必须谨慎使用
+  - write()函数
+      - 将内存中buf中的数据发送给fd指向的文件，接下来什么时候将TCP发送缓冲区的数据发出给主机，什么时候被对方主机读取，这些是我们无法控制的。
+      - size_t write(int sockfd,char *buf,size_t n);
+      - 由于TCP是一个提供可靠数据传输的协议，发送端需要对已收到的报文确认信息，也就是说，发送端将内核send buffer中的数据发送到网络后并不会立即清除send buffer，必须等待收到对方主机的确认信息后才会清除。
+      - 接收端从sockfd中接收数据后放入自己的receive buffer中，并对receive buffer中的数据返回一个确认信息。发送端收到对数据的ACK后才清除自己的send buffer。如果接收端接收端没有将receive buffer中的数据及时确认清除而导致receive buffer中的数据填满，由于滑动窗口协议的作用，接收端不会再从sockfd上读取数据，进而给发送端返回的报文段中阻止发送端发送数据。发送端仍然发送数据，直到发送端的send buffer被填满，write函数被阻塞。
+      - 在每个TCP报文中，都会有一个字段叫cwd：来告知对方自己receive buffer的大小，对方收到报文后会根据cwd来判断是否还要发送数据。
+      - 总的来说就是接收端接受数据的速度赶不上发送端发送数据的速度，接收端通过报文中的cwd告诉发送端不要再发送数据了，send buffer被填满而引发阻塞。
+      - 实例分析：echo：客户端发送20M数据给服务端，服务端receive buffer不足20M，比如只读了10M，然后发送回给客户端，客户端收到cwd，不会再发送数据，然后就会填满send buffer，且write没结束不会read，所以
