@@ -346,4 +346,6 @@
       - 接收端从sockfd中接收数据后放入自己的receive buffer中，并对receive buffer中的数据返回一个确认信息。发送端收到对数据的ACK后才清除自己的send buffer。如果接收端接收端没有将receive buffer中的数据及时确认清除而导致receive buffer中的数据填满，由于滑动窗口协议的作用，接收端不会再从sockfd上读取数据，进而给发送端返回的报文段中阻止发送端发送数据。发送端仍然发送数据，直到发送端的send buffer被填满，write函数被阻塞。
       - 在每个TCP报文中，都会有一个字段叫cwd：来告知对方自己receive buffer的大小，对方收到报文后会根据cwd来判断是否还要发送数据。
       - 总的来说就是接收端接受数据的速度赶不上发送端发送数据的速度，接收端通过报文中的cwd告诉发送端不要再发送数据了，send buffer被填满而引发阻塞。
-      - 实例分析：echo：客户端发送20M数据给服务端，服务端receive buffer不足20M，比如只读了10M，然后发送回给客户端，客户端收到cwd，不会再发送数据，然后就会填满send buffer，且write没结束不会read，所以
+      - 实例分析：echo：客户端发送20M数据给服务端，服务端receive buffer不足20M，比如只读了10M，然后发送回给客户端，客户端收到cwd，不会再发送数据，然后就会填满send buffer，且write没结束不会read，所以客户端也会阻塞。
+ - echo
+      - 见echo_server.cpp 和 echo_client.cpp
