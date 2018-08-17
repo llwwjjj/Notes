@@ -349,3 +349,11 @@
       - 实例分析：echo：客户端发送20M数据给服务端，服务端receive buffer不足20M，比如只读了10M，然后发送回给客户端，客户端收到cwd，不会再发送数据，然后就会填满send buffer，且write没结束不会read，所以客户端也会阻塞。
  - echo
       - 见echo_server.cpp 和 echo_client.cpp
+ - read()函数
+      - 从fd文件中读取n个字节的数据到内存的buf中，功能就是将内核中TCP接受缓冲区中的数据拷贝到内存数组buf中。
+      - size_t read(int fd,char* buf,size_t n);
+      - 阻塞原理：read函数发生阻塞是因为TCP的receive buffer中没有数据。也就是说发送端的数据还没有发送过来。
+ - write和read行为的区别：
+      - 当TCP的接收缓冲区中有数据的话，read就会对数据进行拷贝，而不是等到receive buffer中被填满时才会拷贝。
+      - 而write却不同，只有当TCP的send buffer中能够存放内存buf的内容时才会将buf拷贝到send buffer中。
+  - 整个通信过程中，任意一方都会有三个缓冲区：内存中存放数据的一个缓冲区，用于TCP通信的发送缓冲区和接受缓冲区，通过报文中cwd来控制传输的数据量
