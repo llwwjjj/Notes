@@ -21,7 +21,8 @@
       - 静态创建：pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
       - 动态创建：int pthread_mutex_init(pthread_mutex_t *mutex,const pthread_mutexattr_t* attr);
       - 参数attr指定了新建互斥锁的属性，如果该参数为空，则使用默认的互斥锁属性，默认属性为快速互斥锁。
-      - 成功返回 0
+      - 成功返回 0。
+      
 所需物品              |用途         |备注         |
 ---------------------|-------------|------------|
 电化学沉积反应池       | --          |三电极，通气 |       
