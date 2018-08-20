@@ -22,21 +22,15 @@
       - 动态创建：int pthread_mutex_init(pthread_mutex_t *mutex,const pthread_mutexattr_t *attr);
       - 参数attr指定了新建互斥锁的属性，如果该参数为空，则使用默认的互斥锁属性，默认属性为快速互斥锁。
       - 成功返回 0。
-      
-所需物品              |用途         |备注         |
----------------------|-------------|------------|
-电化学沉积反应池       | --          |三电极，通气 |       
-K(SbO)C4H4O6·0.5H2O(半水合酒石酸氧锑钾)  | 前驱物   |浓度约在2~6mmol/L      |
-H2SeO3(亚硒酸)       | 前驱物  |浓度约5mmol/L      |
-C6H9O6Sb(醋酸锑)     | 前驱物  |浓度约2.5mmol/L，99.9%微量金属元素    |
-Na2SeSO3(硒硫酸钠)    |前驱物  |--|
-SeO2                 |前驱物   |浓度约6mmol/L   |
-NH4Cl               | 铵缓冲液 |浓度约100mmol/L      |
-浓盐酸              | 调节溶液pH值   |--      |
-Bi(NO3)3·5H2O(五水合硝酸铋) | 掺杂铋 |浓度约0.5-1.5mmol/L     |
-SnO2涂层玻璃基板          | 工作电极 |若干     |
-纯石墨板                  | 对电极|--  |
-饱和甘汞电极(SCE)         |参考电极| -- |
-Pt spiral wire  |对电极|  --|
-丙酮，氨，酒精，去离子水|清洗基片| --|
-pH计       |测量溶液pH| --|
+  - 互斥锁属性的创建：
+      - pthread_mutexattr_t attr;
+  - 互斥锁属性的初始化：
+      - pthread_mutexattr_init(&attr); 成功返回0
+  - 设置互斥锁属性：
+      - pthread_mutexattr_settype(&attr,PTHREAD_MUTEX_ERRORCHECK);
+      - PTHREAD_MUTEX_TIMED 缺省值，也就是普通锁，当一个线程加锁后，其余请求锁的线程将形成一个等待队列，并在解锁后按优先级获得锁。保证了资源分配的公平性
+      - PTHREAD_MUTEX_RECURSIVE 嵌套锁，允许同一个线程对同一个锁成功获得多次，并通过多次unlock解锁。如果是不同线程请求，则在加锁线程解锁时重新竞争
+      - PTHREAD_MUTEX_ERRORCHECK 检错锁，如果同一个线程请求同一个锁，则返回EDEADLK，否则与PTHREAD_MUTEX_TIMED类型动作相同，这样保证了当不允许多次加锁时不会出现最简单的死锁
+      - PTHREAD_MUTEX_ADAPTIVE 适应锁，动作最简单的锁类型，仅等待解锁后重新竞争。
+      - 可以用 pthread_mutexattr_settype(pthread_mutexattr_t *attr , int type);设置锁类型
+      - pthread_mutexattr_gettype(pthread_mutexattr_t *attr , int *type);获取锁类型
