@@ -34,3 +34,5 @@
       - PTHREAD_MUTEX_ADAPTIVE 适应锁，动作最简单的锁类型，仅等待解锁后重新竞争。
       - 可以用 pthread_mutexattr_settype(pthread_mutexattr_t *attr , int type);设置锁类型
       - pthread_mutexattr_gettype(pthread_mutexattr_t *attr , int *type);获取锁类型
+  - -pthread
+      - 包含头文件仅能说明了线程函数的声明， 但是还没有实现， 加上-pthread是在链接阶段，链接这个库。
