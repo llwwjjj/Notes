@@ -36,3 +36,5 @@
       - pthread_mutexattr_gettype(pthread_mutexattr_t *attr , int *type);获取锁类型
   - -pthread
       - 包含头文件仅能说明了线程函数的声明， 但是还没有实现， 加上-pthread是在链接阶段，链接这个库。
+  - 互斥锁加锁：
+      - int pthread_mutex_lock(pthread_mutex_t *mutex);成功返回0
