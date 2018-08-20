@@ -12,7 +12,7 @@
 #include<stdexcept>
 #include<string.h>
 #include<stdlib.h>//free
-#include<errno>//定义了几个宏，其和错误状态的报告有关
+#include<cerrno>//定义了几个宏，其和错误状态的报告有关
 #include<execinfo.h>//包含三个函数用于获取当前线程的函数调用堆栈
 //1, int backtrace(void **buffer,int size) 该函数用于获取当前线程调用堆栈，获取的信息会被存放在buffer中，他是一个指针列表。size用于指定buffer可以保存多少void*元素,返回小于等于size的实际获取的指针个数，在buffer中的指针实际是从堆栈中获取的返回地址。
 //2，char** backtrace_symbols(void *const *buffer,int size)返回一个指向字符串数组的指针，大小与buffer相同，每个字符串包含了一个相对于buffer中对应元素的可打印信息。包括函数名，函数的偏移地址，和实际的返回地址。
