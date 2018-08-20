@@ -282,6 +282,13 @@
         int tv_usec;//微妙
       };
       ```
+      - 类似的还有timespec
+      ```cpp
+      struct timespec{
+        int tv_sec;//秒
+        long tv_nsec;//纳秒
+      };
+      ```
       - 如果将时间设为0，select()将立即超时，这样就可以有效地轮询一次集合中的文件描述符
       - 如果将时间设为NULL，将永远不会发生超时，即一直等到第一个就绪的文件描述符
       - select()实例：
