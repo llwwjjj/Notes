@@ -1,5 +1,5 @@
-#include"cond.h"
-#include"read_mutex.h"
+#include"tc_thread_cond.h"
+#include"tc_thread_mutex.h"
 using namespace std;
 //线程监控的模板类，通常线程锁，都通过该类来使用，而不是直接使用TC_ThreadMutex和TC_ThreadRecMutex
 //该类将TC_ThreadMutex/TC_ThreadRecMutex与TC_ThreadCond结合起来
@@ -43,8 +43,19 @@ namespace tars{
 			}
 			_nnotify = 0;
 		}
+		//等待并设置超时,还未实现
+		bool timeWait(int millsecond) const;
+		//通知等待在该锁上的某个线程醒来，调用该函数之前必须加锁，在解锁的时候才真正通知
+		void notify(){
+			if(_nnotify != -1)//如果不是通知所有线程醒来，就+1，代表多唤醒一个线程
+				++ _nnotify;
+		}
+		//通知等待在该锁上的所有线程醒来，调用该函数之前必须加锁，在解锁的时候才真正通知
+		void notifyAll(){
+			_nnotify = -1;
+		}
 	protected:
-		//通知实现
+		//通知实现，如果是正常加锁，解锁，那么nnotify会为1，也就是说不用通知线程醒来
 		void notifyImpl(int nnotify) const {
 			if(nnotify != 0)
 				if(nnotify == -1){
@@ -53,7 +64,7 @@ namespace tars{
 					return;
 				}
 				else{
-					while(nnotify > 0){
+					while(nnotify > 0){	//notifty等于几就唤醒多少个线程
 						_cond.signal();
 						--nnotify;
 					}
@@ -61,9 +72,17 @@ namespace tars{
 		}
 
 	private:
+		//禁止拷贝
+		TC_Monitor(const TC_Monitor&);
+		void operator=(const TC_Monitor&);
+	protected:
 		//上锁的次数
 		mutable int _nnotify;
 		mutable P _cond;
 		T _mutex;
 	};
+	//普通线程锁
+	typedef TC_Monitor<TC_ThreadMutex,TC_ThreadCond> TC_ThreadLock;
+	//循环锁
+	typedef TC_Monitor<TC_ThreadRecMutex,TC_ThreadCond> TC_ThreadRecLock;
 }
