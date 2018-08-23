@@ -102,12 +102,12 @@ namespace tars{
 	class TC_RW_WLockT{
 	public:
 		//構造時加鎖
-		TC_RW_WLock(T& lock):_rwLock(lock),_acquired(false){
+		TC_RW_WLockT(T& lock):_rwLock(lock),_acquired(false){
 			_rwLock.WriteLock();
 			_acquired = true;
 		}
 		//析構時解鎖
-		~TC_RW_WLock(){
+		~TC_RW_WLockT(){
 			if(_acquired)
 				_rwLock.Unlock();
 		}
