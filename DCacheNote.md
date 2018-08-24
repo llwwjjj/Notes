@@ -51,16 +51,9 @@
 
 
 
-
-
-
-contianer            |
----------------------|
-Lwj_stl::Lwj_vector  |
-Lwj_stl::Lwj_vector  | 
-Lwj_stl::Lwj_vector  |
-Lwj_stl::Lwj_vector  |
-std::vector          |
-std::vector          |
-std::vector          |
-std::vector          |
+Fields            |Score     |
+------------------|----------|
+mid = xxx,......  | 10       |
+mid = yyy,......  | 30       |
+mid = zzz,......  | 60       |
+...               | ...      |
