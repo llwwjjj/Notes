@@ -44,3 +44,12 @@
   - 线程id：
       - 线程和进程都有自己的id，这个id就叫做pid，pthread库里的每一个线程都对应一个内核线程，都是有单独的pid
       - 获取线程自身id：pthread_t pthread_self(void); pthread_t的类型为unsigned long int
+  - pthread_join()函数：
+      - 当前线程挂起，线程阻塞等待子线程结束，然后回收子线程资源
+      - int pthread_join(pthread_t tid, void**thread_return); 
+      - 成功则返回0，失败返回非0
+  - pthread_detach()函数：
+      - 分离线程，不阻塞
+      - int pthread_detach(pthread_t tid);
+      - 成功则返回0，失败返回非0
+      
