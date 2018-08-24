@@ -52,4 +52,7 @@
       - 分离线程，不阻塞
       - int pthread_detach(pthread_t tid);
       - 成功则返回0，失败返回非0
-      
+  - nanosleep()函数：
+      - 头文件 tiime.h
+      - int nanosleep(const struct timespec *t, struct timespec *rmtp);
+      - 导致当前线程
