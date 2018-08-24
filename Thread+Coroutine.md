@@ -41,3 +41,6 @@
       - int pthread_mutex_unlock(pthread_mutex_t *mutex);成功返回0
       - bool pthread_mutex_trylock(pthread_mutex_t *mutex);成功返回true
       - int pthread_mutex_destroy(pthread_mutex_t *mutex);成功返回0
+  - 线程id：
+      - 线程和进程都有自己的id，这个id就叫做pid，pthread库里的每一个线程都对应一个内核线程，都是有单独的pid
+      - 获取线程自身id：pthread_t pthread_self(void); pthread_t的类型为unsigned long int
