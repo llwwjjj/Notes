@@ -56,3 +56,6 @@
       - 头文件 tiime.h
       - int nanosleep(const struct timespec *t, struct timespec *rmtp);
       - 导致当前线程
+* time_provider:
+  - time_provider类：
+      - 使用：TC_TimeProvider::getInstance()->getNow()
