@@ -42,4 +42,10 @@
 	1    2   3   4           120   122
 				    N
 	//这个操作使得DCache_Struct里的字段数最多为119个
+	//--->MAKE_META_DATA(Rank,3,uid,sex,age)
+	//--->namespace Rank {MARCO_EXPAND(MARCO_CONCAT(CON_STR,3)(uid,sex,age))}
+	//--->namespace Rank {MARCO_EXPAND(CON_STR_3)(uid,sex,age)}
+	//--->namespace Rank {CON_STR_3(uid,sex,age)}
+	//namespcae Rank {static const DCache::Field uid("uid");static const DCache::Field sex("sex");static const DCache::Field age("age");}
+
    ```
