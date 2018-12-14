@@ -28,7 +28,7 @@
 	    int i =2 ,j = 3;
 	    myprint("i=%d,j=%d\n",i,j);
 	    myprint2("i=%d,j=%d\n",i,j);//必须有两个或以上参数
-	    myprint3("i=%d\n",i);
+	    myprint3("i=%d\n",i);//可以只有一个参数
 	    return 0;
     }
   ```
